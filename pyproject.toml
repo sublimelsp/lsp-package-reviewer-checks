@@ -6,7 +6,7 @@ requires-python = ">=3.13"
 dependencies = ["st-package-reviewer"]
 
 [dependency-groups]
-dev = ["pytest>=8,<9", "pytest-cov>=5,<6", "pytest-xdist>=3,<4", "ruff"]
+dev = ["pytest>=9,<10", "pytest-cov>=5,<6", "pytest-xdist>=3,<4", "ruff"]
 
 [tool.pytest.ini_options]
 norecursedirs = ["packages"]
