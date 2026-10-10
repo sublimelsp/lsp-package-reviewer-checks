@@ -1,0 +1,8 @@
+.DS_Store
+.venv
+__pycache__
+.pytest_cache
+.coverage
+.ruff_cache
+.thecrawl
+review.md

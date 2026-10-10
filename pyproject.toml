@@ -1,0 +1,29 @@
+[project]
+name = "lsp-review-checks"
+version = "0.1.0"
+description = "Additional st_package_reviewer checks for packages in the sublimelsp repository."
+requires-python = ">=3.13"
+dependencies = ["st-package-reviewer"]
+
+[dependency-groups]
+dev = ["pytest>=8,<9", "pytest-cov>=5,<6", "pytest-xdist>=3,<4", "ruff"]
+
+[tool.pytest.ini_options]
+norecursedirs = ["packages"]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.uv]
+package = false
+
+# Keep pinned to the reviewer revision used by sublimelsp/repository workflows.
+[tool.uv.sources.st-package-reviewer]
+git = "https://github.com/kaste/st_package_reviewer"
+rev = "406c008ab8551a3eda62c5388bdd0ab1dba5e9f9"
