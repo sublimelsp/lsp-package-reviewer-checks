@@ -3,8 +3,7 @@ from collections.abc import Iterable
 from st_package_reviewer.check.file.check_resource_files import CheckSettingsMenuEntry
 from st_package_reviewer.lib import jsonc
 
-# A value parsed from a JSON file.
-type JsonValue = None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
+from .json_types import JsonValue
 
 # Path of menu ids under which LSP-* packages register their settings entry.
 LSP_SERVERS_MENU_PATH = ("preferences", "package-settings", "lsp-settings", "lsp-servers")
