@@ -14,6 +14,9 @@ Additional [st_package_reviewer](https://github.com/kaste/st_package_reviewer) c
   it is `false`, nor `initialization_options` or `settings` unless they include any keys, nor `schemes` set to the
   default `["file"]`. Deprecated `ClientConfig` keys (`initializationOptions`, `ignore_server_trigger_chars`) are
   reported too.
+- `LspCheckLspPlugin` - `LSP-*` packages should implement their handlers using `LspPlugin` instead of the deprecated
+  `AbstractPlugin` or the lsp_utils client handlers based on it (`ClientHandler`, `GenericClientHandler`,
+  `NpmClientHandler`, `PipClientHandler`). See [Migrating to LspPlugin](https://lsp.sublimetext.io/migrating_to_lsp_plugin/).
 
 Checks that replace a stock check require that check to be disabled with `--exclude` (or the `exclude` action input).
 
