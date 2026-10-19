@@ -11,8 +11,9 @@ Additional [st_package_reviewer](https://github.com/kaste/st_package_reviewer) c
   `Preferences > Package Settings > LSP > Servers > <package>` menu entry that opens `<package>.sublime-settings`
   with `edit_settings`. Other packages fall back to the stock check.
 - `LspCheckSettingsFile` - the `<package>.sublime-settings` file of `LSP-*` packages must not specify `enabled` unless
-  it is `false`, nor `initialization_options` or `settings` unless they include any keys. Deprecated `ClientConfig`
-  keys (`initializationOptions`, `ignore_server_trigger_chars`) are reported too.
+  it is `false`, nor `initialization_options` or `settings` unless they include any keys, nor `schemes` set to the
+  default `["file"]`. Deprecated `ClientConfig` keys (`initializationOptions`, `ignore_server_trigger_chars`) are
+  reported too.
 
 Checks that replace a stock check require that check to be disabled with `--exclude` (or the `exclude` action input).
 
