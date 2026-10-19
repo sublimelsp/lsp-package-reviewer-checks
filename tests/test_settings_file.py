@@ -25,6 +25,7 @@ def make_package(path: Path, name: str, settings: str | dict[str, Any]) -> None:
     {},
     {"enabled": False},
     {"initialization_options": {"foo": 1}, "settings": {"foo.bar": True}},
+    {"schemes": ["file", "buffer"]},
     "// comment\n{\"enabled\": false,}",
 ])
 def test_valid_settings(tmp_path: Path, settings: str | dict[str, Any]) -> None:
@@ -49,6 +50,12 @@ def test_empty_object(tmp_path: Path, key: str, value: Any) -> None:
     make_package(tmp_path, "LSP-foo", {key: value})
     [warning] = run(tmp_path, "LSP-foo")
     assert f"should not specify {key!r} unless it includes any keys" in warning
+
+
+def test_default_schemes(tmp_path: Path) -> None:
+    make_package(tmp_path, "LSP-foo", {"schemes": ["file"]})
+    [warning] = run(tmp_path, "LSP-foo")
+    assert "should not specify 'schemes' set to [\"file\"]" in warning
 
 
 @pytest.mark.parametrize("key, replacement", [

@@ -43,6 +43,9 @@ class LspCheckSettingsFile(FileChecker):
                 if key in settings and not (isinstance(value, dict) and value):
                     self.warn(f"'{settings_name}' should not specify {key!r} unless it includes any keys")
 
+            if settings.get("schemes") == ["file"]:
+                self.warn(f"'{settings_name}' should not specify 'schemes' set to [\"file\"]. It is the default value.")
+
             for key, replacement in DEPRECATED_KEYS.items():
                 if key in settings:
                     self.warn(f"'{settings_name}' uses the deprecated {key!r} setting. {replacement}")
