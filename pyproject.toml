@@ -6,7 +6,13 @@ requires-python = ">=3.13"
 dependencies = ["st-package-reviewer"]
 
 [dependency-groups]
-dev = ["pytest>=8,<9", "pytest-cov>=5,<6", "pytest-xdist>=3,<4", "ruff"]
+dev = ["pyright==1.1.414", "pytest>=8,<9", "pytest-cov>=5,<6", "pytest-xdist>=3,<4", "ruff"]
+
+[tool.pyright]
+include = ["lsp_review_checks", "tests"]
+exclude = ["tests/packages"]
+pythonVersion = "3.13"
+typeCheckingMode = "standard"
 
 [tool.pytest.ini_options]
 norecursedirs = ["packages"]

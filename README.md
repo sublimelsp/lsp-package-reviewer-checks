@@ -27,6 +27,7 @@ Requires [uv](https://docs.astral.sh/uv/). The reviewer is installed as a depend
 uv sync --group dev
 uv run pytest
 uv run ruff check .
+uv run pyright
 ```
 
 Review a local package checkout:

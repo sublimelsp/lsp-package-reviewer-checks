@@ -1,5 +1,10 @@
+from collections.abc import Iterable
+
 from st_package_reviewer.check.file.check_resource_files import CheckSettingsMenuEntry
 from st_package_reviewer.lib import jsonc
+
+# A value parsed from a JSON file.
+type JsonValue = None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
 
 # Path of menu ids under which LSP-* packages register their settings entry.
 LSP_SERVERS_MENU_PATH = ("preferences", "package-settings", "lsp-settings", "lsp-servers")
@@ -15,7 +20,7 @@ class LspCheckSettingsMenu(CheckSettingsMenuEntry):
     Run with `--exclude CheckSettingsMenuEntry` so that the stock check does not also run.
     """
 
-    def check(self):
+    def check(self) -> None:
         if not self.package_name or not self.package_name.startswith("LSP-"):
             super().check()
             return
@@ -32,7 +37,7 @@ class LspCheckSettingsMenu(CheckSettingsMenuEntry):
 
         with self.file_context(menu_path):
             try:
-                menu = jsonc.loads(menu_path.read_text(encoding="utf-8"))
+                menu: JsonValue = jsonc.loads(menu_path.read_text(encoding="utf-8"))
             except ValueError:
                 return  # Reported by the resource file validity checks.
 
@@ -56,12 +61,12 @@ class LspCheckSettingsMenu(CheckSettingsMenuEntry):
                           f"{expected_base_file!r}, found {base_file!r}")
 
 
-def _children(node):
+def _children(node: JsonValue) -> list[dict[str, JsonValue]]:
     children = node.get("children") if isinstance(node, dict) else node
     return [child for child in children if isinstance(child, dict)] if isinstance(children, list) else []
 
 
-def _find_menu_node(menu, ids):
+def _find_menu_node(menu: JsonValue, ids: Iterable[str]) -> JsonValue:
     node = menu
     for menu_id in ids:
         node = next((child for child in _children(node) if child.get("id") == menu_id), None)

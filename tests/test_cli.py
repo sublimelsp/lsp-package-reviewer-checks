@@ -8,7 +8,7 @@ ROOT = Path(__file__).parent.parent
 PACKAGES = Path(__file__).parent / "packages"
 
 
-def review(package, *args):
+def review(package: str, *args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [
             sys.executable, "-m", "st_package_reviewer",
@@ -22,14 +22,14 @@ def review(package, *args):
     )
 
 
-def test_valid_package_passes():
+def test_valid_package_passes() -> None:
     result = review("LSP-valid", "--fail-on-warnings")
     assert result.returncode == 0, result.stdout + result.stderr
     assert "No failures, no warnings." in result.stdout
 
 
 @pytest.mark.parametrize("fail_on_warnings, returncode", [(False, 0), (True, 1)])
-def test_missing_menu_is_reported(fail_on_warnings, returncode):
+def test_missing_menu_is_reported(fail_on_warnings: bool, returncode: int) -> None:
     result = review("LSP-missing-menu", *(["--fail-on-warnings"] if fail_on_warnings else []))
     assert result.returncode == returncode, result.stdout + result.stderr
     assert "missing 'Main.sublime-menu'" in result.stdout
