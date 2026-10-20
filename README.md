@@ -17,6 +17,8 @@ Additional [st_package_reviewer](https://github.com/kaste/st_package_reviewer) c
 - `LspCheckLspPlugin` - `LSP-*` packages should implement their handlers using `LspPlugin` instead of the deprecated
   `AbstractPlugin` or the lsp_utils client handlers based on it (`ClientHandler`, `GenericClientHandler`,
   `NpmClientHandler`, `PipClientHandler`). See [Migrating to LspPlugin](https://lsp.sublimetext.io/migrating_to_lsp_plugin/).
+- `LspCheckSyntaxFiles` - packages should not provide `.sublime-syntax` files unless they are hidden (top-level
+  `hidden: true`). Other syntaxes are better moved to a dedicated package in the default Package Control channel.
 
 Checks that replace a stock check require that check to be disabled with `--exclude` (or the `exclude` action input).
 
